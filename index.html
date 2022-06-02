@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Тестування можливостей Google Maps API</title>
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    </head>
+    <body>
+        <section>
+            <div class="wrapper">
+                <h1>
+                    Тест карти
+                </h1>
+                <div id="test-map"></div>
+            </div>
+        </section>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6YtDHgTIOMFoNvwjDSJz0Wx7zBldnEjI&callback=initMap"></script>
+        <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+        <script src="/js/google-map.js" type="module"></script>
+        <!-- <script src="js/load-addresses.js"></script> -->
+    </body>
+</html>
