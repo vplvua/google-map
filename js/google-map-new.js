@@ -1,5 +1,3 @@
-(function(){
-
     function initMap() {
         
         const map = new google.maps.Map(document.getElementById("test-map"), {
@@ -39,5 +37,3 @@
     ];
 
     window.initMap = initMap();
-
-})();
