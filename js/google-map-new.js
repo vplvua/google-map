@@ -11,10 +11,9 @@
         });
 
         const markers = locations.map((element) => {
-            let position = element.position;
-            const marker = new google.maps.Marker({
-                position
-            });
+            
+            const marker = new google.maps.Marker();
+            marker.setPosition(element.position);
 
             const infowindow = new google.maps.InfoWindow ();
 
@@ -32,10 +31,11 @@
 
     const locations = [
         { name: "ОСББ \"ЗУБРА ЛІСНА\"", position: { lat: 49.7868173, lng: 24.0496875 } },
-        { name: "\"СУПУТНИК-БІЛОГОРОДКА\"", position: { lat: 50.3773488, lng: 30.2292999 } },
+        { name: "ОСББ \"СУПУТНИК-БІЛОГОРОДКА\"", position: { lat: 50.3773488, lng: 30.2292999 } },
         { name: "ОК \"ПРЕСТИЖ-БУД\"", position: { lat: 46.815727, lng: 35.3672299 } },
         { name: "ОСББ \"Будинок Модерн\"", position: { lat: 46.8478905, lng: 35.3638744 } },
         { name: "ОСББ \"Карпенка 22а\"", position: { lat: 49.5422769, lng: 25.5826257 } },
+        { name: "ОСББ \"Гетьманський Двір 1223\"", position: { lat: 49.8705396, lng: 24.0327176 } },
     ];
 
     window.initMap = initMap();
