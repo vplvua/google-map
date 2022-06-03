@@ -19,10 +19,7 @@
             disableAutoPan: true,
         });
 
-        async function loadAdresses() {
-            const response = await fetch('for-map.json');
-            addressList = await response.json();
-            console.log(addressList.length, `${addressList[100].street} ${addressList[100].house} ${addressList[100].city} ${addressList[100].zip}`);
+
 
             for (let i = 0; i < addressList.length; i++) {
                 geocoder.geocode({ address: `${addressList[i].street} ${addressList[i].house} ${addressList[i].city} ${addressList[i].zip}`, region: 'UA' }, function(results, status) {
@@ -34,49 +31,75 @@
                                 }
                 });
             }
-        }
+        
+            console.log(locations.length, locations);    
+
+            const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const markers = [];
+            let position = {};
+            let label = [];
+            let marker;
     
-        loadAdresses();
+            for (let i = 0; i < locations.length; i++) {
+                position = locations[i].position;
+                label = labels[i % labels.length];
+                marker = new google.maps.Marker({
+                    position,
+                    label,
+                });
+    
+                marker.addListener("click", () => {
+                    infoWindow.setContent(locations[i].name);
+                    infoWindow.open(map, marker);
+                });
+    
+                markers[i] = marker;
+    
+            }
 
-        console.log(locations);    
+            console.log(markers);
+    
 
-        const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        // Add some markers to the map.
-        // const markers = locations.map((element, i) => {
-        //     const label = labels[i % labels.length];
+        // console.log(locations);    
+
+        // const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        // // Add some markers to the map.
+        // // const markers = locations.map((element, i) => {
+        // //     const label = labels[i % labels.length];
+        // //     const marker = new google.maps.Marker({
+        // //         element,
+        // //         label,
+        // //     });
+
+        // //     marker.addListener("click", () => {
+        // //         infoWindow.setContent(element);
+        // //         infoWindow.open(map, marker);
+        // //     });
+
+        // //     return marker;
+        // // });
+
+        // const markers = [];
+        // let position = {};
+        // let label = [];
+
+        // for (let i = 0; i < locations.length; i++) {
+        //     position = locations[i].position;
+        //     label = labels[i % labels.length];
         //     const marker = new google.maps.Marker({
-        //         element,
+        //         position,
         //         label,
         //     });
 
         //     marker.addListener("click", () => {
-        //         infoWindow.setContent(element);
+        //         infoWindow.setContent(locations[i].name);
         //         infoWindow.open(map, marker);
         //     });
 
-        //     return marker;
-        // });
+        //     markers[i] = marker;
 
-        const markers = [];
+        // }
 
-        for (let i = 0; i < locations.length; i++) {
-            const position = locations[i].position;
-            const label = labels[i % labels.length];
-            const marker = new google.maps.Marker({
-                position,
-                label,
-            });
-
-            marker.addListener("click", () => {
-                infoWindow.setContent(locations[i].name);
-                infoWindow.open(map, marker);
-            });
-
-            markers[i] = marker;
-
-        }
-
-        console.log(markers);
 
         // Add a marker clusterer to manage the markers.
         new markerClusterer.MarkerClusterer({ map, markers });
@@ -88,7 +111,12 @@
     //     { lat: 46.482952, lng: 30.712481}
     // ];
 
+    async function loadAdresses() {
+        const response = await fetch('for-map.json');
+        addressList = await response.json();
+    }
 
+    loadAdresses();
 
     window.initMap = initMap;
 
